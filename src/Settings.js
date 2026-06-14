@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Page from "./components/Page";
 // MUI
 import Box from "@mui/material/Box";
@@ -13,9 +13,19 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
+import CircularProgress from "@mui/material/CircularProgress";
 // Icons
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
+import DownloadIcon from "@mui/icons-material/Download";
+// Others
+import parser from "iptv-playlist-parser";
+import { GlobalContext } from "./App";
 import db from "./config/dexie";
+
+const BUILT_IN_PLAYLISTS = [
+  { name: "🇦🇱 Albania", url: "https://iptv-org.github.io/iptv/countries/al.m3u" },
+  { name: "🇩🇿 Algeria", url: "https://iptv-org.github.io/iptv/countries/dz.m3u" },
+];
 
 export default function Settings() {
   const [autoplay, setAutoplay] = useState(
@@ -26,6 +36,9 @@ export default function Settings() {
   );
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [loadingPlaylist, setLoadingPlaylist] = useState(null);
+
+  const { setAlertMessage, setSelectedPlaylistName } = useContext(GlobalContext);
 
   const handleAutoplayToggle = () => {
     const newVal = !autoplay;
@@ -47,9 +60,78 @@ export default function Settings() {
     });
   };
 
+  const handleAddBuiltInPlaylist = (playlist) => {
+    setLoadingPlaylist(playlist.name);
+    fetch(playlist.url)
+      .then((res) => res.text())
+      .then((rawData) => {
+        const playlistData = parser.parse(rawData).items;
+        if (playlistData.length === 0) {
+          setAlertMessage({ title: "No data", message: "No channels found in this playlist." });
+          return;
+        }
+        db.playlists
+          .where("name")
+          .equalsIgnoreCase(playlist.name)
+          .count()
+          .then((count) => {
+            if (count === 0) {
+              db.playlists.add({ name: playlist.name, data: playlistData }).then(() => {
+                setSelectedPlaylistName(playlist.name);
+                setSnackbarMessage(`"${playlist.name}" added successfully!`);
+                setSnackbarOpen(true);
+              });
+            } else {
+              setAlertMessage({ title: "Already exists", message: `"${playlist.name}" is already in your playlists.` });
+            }
+          });
+      })
+      .catch(() => {
+        setAlertMessage({ title: "Error", message: `Failed to load "${playlist.name}". Check your connection.` });
+      })
+      .finally(() => {
+        setLoadingPlaylist(null);
+      });
+  };
+
   return (
     <Page title="Settings">
       <Box sx={{ maxWidth: 600, mx: "auto", mt: 1 }}>
+
+        {/* Built-in Playlists */}
+        <List
+          subheader={
+            <ListSubheader component="div">Built-in Playlists</ListSubheader>
+          }
+        >
+          {BUILT_IN_PLAYLISTS.map((playlist) => (
+            <ListItem key={playlist.name}>
+              <ListItemText
+                primary={playlist.name}
+                secondary={playlist.url}
+                secondaryTypographyProps={{ noWrap: true, style: { maxWidth: 300 } }}
+              />
+              <Button
+                variant="outlined"
+                size="small"
+                startIcon={
+                  loadingPlaylist === playlist.name ? (
+                    <CircularProgress size={16} />
+                  ) : (
+                    <DownloadIcon />
+                  )
+                }
+                disabled={loadingPlaylist === playlist.name}
+                onClick={() => handleAddBuiltInPlaylist(playlist)}
+              >
+                Add
+              </Button>
+            </ListItem>
+          ))}
+        </List>
+
+        <Divider />
+
         {/* Playback */}
         <List
           subheader={
