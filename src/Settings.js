@@ -129,24 +129,7 @@ export default function Settings() {
           }
         >
           <ListItem>
-            <ListItemText primary="App" secondary="Bl4ck World IPTV" />
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary="Source"
-              secondary={
-                <Typography
-                  component="a"
-                  href="https://github.com/blackglobeco/bl4ckworldiptv"
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="body2"
-                  color="primary"
-                >
-                  github.com/blackglobeco/bl4ckworldiptv
-                </Typography>
-              }
-            />
+            <ListItemText primary="App" secondary="World IPTV" />
           </ListItem>
         </List>
       </Box>
