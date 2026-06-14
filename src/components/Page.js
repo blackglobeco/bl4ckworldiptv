@@ -125,19 +125,6 @@ function Page(props) {
             <ListItemText primary="Settings" />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton
-            onClick={() => {
-              handleDrawerToggle();
-              window.open("https://github.com/MobinurRahaman/ellipto-iptv", "_blank");
-            }}
-          >
-            <ListItemIcon>
-              <GitHubIcon />
-            </ListItemIcon>
-            <ListItemText primary="GitHub" />
-          </ListItemButton>
-        </ListItem>
       </List>
       <Divider />
       <Box
