@@ -134,16 +134,14 @@ export default function Settings() {
             <ListItemText
               primary="Developed by"
               secondary={
-                <Typography
-                  component="a"
+                <a
                   href="https://blackglobe.qzz.io/"
                   target="_blank"
                   rel="noreferrer"
-                  variant="body2"
-                  color="primary"
+                  style={{ color: "inherit" }}
                 >
                   github.com/blackglobeco/bl4ckworldiptv
-                </Typography>
+                </a>
               }
             />
           </ListItem>
