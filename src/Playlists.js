@@ -107,7 +107,7 @@ export default function Playlists() {
     const playlistName =
       remotePlaylistName || remotePlaylistUrl?.split("/").pop();
 
-    fetch(`https://corsproxy.io/?${encodeURIComponent(remotePlaylistUrl)}`)
+    fetch(remotePlaylistUrl)
       .then((res) => res.text())
       .then((rawPlaylistData) =>
         handleAddPlaylistToDB(playlistName, rawPlaylistData)

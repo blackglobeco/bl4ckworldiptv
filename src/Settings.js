@@ -23,29 +23,16 @@ import parser from "iptv-playlist-parser";
 import { GlobalContext } from "./App";
 import db from "./config/dexie";
 
-const CORS_PROXY = "https://corsproxy.io/?";
-
-const proxiedUrl = (url) => `${CORS_PROXY}${encodeURIComponent(url)}`;
-
 const BUILT_IN_PLAYLISTS = [
   { name: "🌍 Worldwide", url: "https://iptv-org.github.io/iptv/index.m3u" },
-  { name: "📺 Samsung TV Plus (US)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_samsung.m3u" },
-  { name: "📺 Samsung TV Plus (UK)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/uk_samsung.m3u" },
-  { name: "📺 Samsung TV Plus (DE)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/de_samsung.m3u" },
-  { name: "📺 Samsung TV Plus (FR)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/fr_samsung.m3u" },
-  { name: "📺 Samsung TV Plus (IT)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/it_samsung.m3u" },
-  { name: "📺 Samsung TV Plus (ES)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/es_samsung.m3u" },
-  { name: "📺 The Roku Channel (US)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_roku.m3u" },
-  { name: "📺 Pluto TV (US)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_pluto.m3u" },
-  { name: "📺 Pluto TV (UK)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/uk_pluto.m3u" },
-  { name: "📺 Pluto TV (DE)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/de_pluto.m3u" },
-  { name: "📺 Pluto TV (FR)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/fr_pluto.m3u" },
-  { name: "📺 Tubi TV (US)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_tubi.m3u" },
-  { name: "📺 Plex TV (US)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_plex.m3u" },
-  { name: "📺 Vizio TV (US)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_vizio.m3u" },
-  { name: "📺 Xumo TV (US)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_xumo.m3u" },
-  { name: "📺 Distro TV (US)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/us_distro.m3u" },
-  { name: "📺 Distro TV (UK)", url: "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/uk_distro.m3u" },
+  { name: "🖥️ Samsung TV Plus", url: "https://apsattv.com/ssungusa.m3u" },
+  { name: "🖥️ LG Channels", url: "https://www.apsattv.com/lg.m3u" },
+  { name: "🖥️ The Roku Channel", url: "https://www.apsattv.com/rok.m3u" },
+  { name: "🖥️ Vizio TV", url: "https://www.apsattv.com/vizio.m3u" },
+  { name: "🖥️ Redbox TV", url: "https://www.apsattv.com/redbox.m3u" },
+  { name: "🖥️ Distro TV", url: "https://www.apsattv.com/redbox.m3u" },
+  { name: "🖥️ Xiaomi TV", url: "https://www.apsattv.com/xiaomi.m3u" },
+  { name: "🖥️ Xumo TV", url: "https://www.apsattv.com/xumo.m3u" },
   { name: "🇦🇫 Afghanistan", url: "https://iptv-org.github.io/iptv/countries/af.m3u" },
   { name: "🇦🇱 Albania", url: "https://iptv-org.github.io/iptv/countries/al.m3u" },
   { name: "🇩🇿 Algeria", url: "https://iptv-org.github.io/iptv/countries/dz.m3u" },
@@ -270,7 +257,7 @@ export default function Settings() {
 
   const handleAddBuiltInPlaylist = (playlist) => {
     setLoadingPlaylist(playlist.name);
-    fetch(proxiedUrl(playlist.url))
+    fetch(playlist.url)
       .then((res) => res.text())
       .then((rawData) => {
         const playlistData = parser.parse(rawData).items;
@@ -309,7 +296,7 @@ export default function Settings() {
     for (let i = 0; i < BUILT_IN_PLAYLISTS.length; i++) {
       const playlist = BUILT_IN_PLAYLISTS[i];
       try {
-        const res = await fetch(proxiedUrl(playlist.url));
+        const res = await fetch(playlist.url);
         const rawData = await res.text();
         const playlistData = parser.parse(rawData).items;
         if (playlistData.length > 0) {
