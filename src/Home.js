@@ -301,8 +301,7 @@ export default function Home() {
           >
             <Typography variant="body1">No playlists found.</Typography>
             <Typography variant="body1">
-              Click on the manage button in the playlists section of the left
-              drawer and add a playlist.
+              Click on the ⚙️ Settings tab and then click on the Add All button in the Built-in Playlists section.
             </Typography>
           </Box>
         ) : null
