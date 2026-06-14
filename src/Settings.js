@@ -435,7 +435,7 @@ export default function Settings() {
           }
         >
           <ListItem>
-            <ListItemText primary="App" secondary="World IPTV" />
+            <ListItemText primary="App" secondary="Black IPTV" />
           </ListItem>
           <ListItem>
             <ListItemText
