@@ -17,6 +17,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 // Icons
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import DownloadIcon from "@mui/icons-material/Download";
+import DownloadingIcon from "@mui/icons-material/Downloading";
 // Others
 import parser from "iptv-playlist-parser";
 import { GlobalContext } from "./App";
@@ -221,6 +222,8 @@ export default function Settings() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [loadingPlaylist, setLoadingPlaylist] = useState(null);
+  const [addingAll, setAddingAll] = useState(false);
+  const [addAllProgress, setAddAllProgress] = useState(0);
 
   const { setAlertMessage, setSelectedPlaylistName } = useContext(GlobalContext);
 
@@ -278,6 +281,33 @@ export default function Settings() {
       });
   };
 
+  const handleAddAll = async () => {
+    setAddingAll(true);
+    setAddAllProgress(0);
+    let added = 0;
+    for (let i = 0; i < BUILT_IN_PLAYLISTS.length; i++) {
+      const playlist = BUILT_IN_PLAYLISTS[i];
+      try {
+        const res = await fetch(playlist.url);
+        const rawData = await res.text();
+        const playlistData = parser.parse(rawData).items;
+        if (playlistData.length > 0) {
+          const count = await db.playlists.where("name").equalsIgnoreCase(playlist.name).count();
+          if (count === 0) {
+            await db.playlists.add({ name: playlist.name, data: playlistData });
+            added++;
+          }
+        }
+      } catch (e) {
+        // skip failed
+      }
+      setAddAllProgress(i + 1);
+    }
+    setAddingAll(false);
+    setSnackbarMessage(`Done! Added ${added} playlist(s).`);
+    setSnackbarOpen(true);
+  };
+
   return (
     <Page title="Settings">
       <Box sx={{ maxWidth: 600, mx: "auto", mt: 1 }}>
@@ -285,7 +315,19 @@ export default function Settings() {
         {/* Built-in Playlists */}
         <List
           subheader={
-            <ListSubheader component="div">Built-in Playlists</ListSubheader>
+            <ListSubheader component="div" sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", pr: 1 }}>
+              Built-in Playlists
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={addingAll ? <CircularProgress size={14} /> : <DownloadingIcon />}
+                disabled={addingAll}
+                onClick={handleAddAll}
+                sx={{ ml: 2, textTransform: "none", fontSize: "0.75rem" }}
+              >
+                {addingAll ? `${addAllProgress}/${BUILT_IN_PLAYLISTS.length}` : "Add All"}
+              </Button>
+            </ListSubheader>
           }
         >
           {BUILT_IN_PLAYLISTS.map((playlist) => (
