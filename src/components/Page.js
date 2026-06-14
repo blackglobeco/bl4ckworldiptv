@@ -24,7 +24,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import SettingsIcon from "@mui/icons-material/Settings";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -211,7 +210,6 @@ function Page(props) {
               <Paper
                 elevation={0}
                 component="form"
-                // Disable form submit
                 onSubmit={(e) => e.preventDefault()}
                 sx={{
                   mx: -2,
@@ -286,7 +284,6 @@ function Page(props) {
           sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 } }}
           aria-label="menu"
         >
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <SwipeableDrawer
             container={container}
             variant="temporary"
@@ -295,7 +292,7 @@ function Page(props) {
             onOpen={handleDrawerToggle}
             onClose={handleDrawerToggle}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             }}
             sx={{
               display: { xs: "block", lg: "none" },
@@ -340,10 +337,6 @@ function Page(props) {
 }
 
 Page.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 
