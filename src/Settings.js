@@ -210,7 +210,7 @@ const BUILT_IN_PLAYLISTS = [
   { name: "🇪🇭 Western Sahara", url: "https://iptv-org.github.io/iptv/countries/eh.m3u" },
   { name: "🇾🇪 Yemen", url: "https://iptv-org.github.io/iptv/countries/ye.m3u" },
   { name: "🇿🇼 Zimbabwe", url: "https://iptv-org.github.io/iptv/countries/zw.m3u" },
-  { name: "📡 Astro", url: "https://live.hacks.tools/iptv/languages/malaysia.m3u" },
+  { name: "📡 Astro", url: "https://github.com/blackglobeco/bl4ckworldiptv/delete/main/astro_iptv.m3u" },
 ];
 
 export default function Settings() {
