@@ -281,7 +281,7 @@ export default function Home() {
   }
 
   return (
-    <Page title="World IPTV">
+    <Page title="Black IPTV">
       {playlistCount !== null ? (
         playlistCount === 0 ? (
           <Box
