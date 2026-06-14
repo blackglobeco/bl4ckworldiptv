@@ -25,7 +25,14 @@ import db from "./config/dexie";
 
 const BUILT_IN_PLAYLISTS = [
   { name: "🌍 Worldwide", url: "https://iptv-org.github.io/iptv/index.m3u" },
-  { name: "🖥️ Premium IPTV", url: "https://m3u.ibert.me/all.m3u" },
+  { name: "🖥️ Samsung TV Plus", url: "https://apsattv.com/ssungusa.m3u" },
+  { name: "🖥️ LG Channels", url: "https://www.apsattv.com/lg.m3u" },
+  { name: "🖥️ The Roku Channel", url: "https://www.apsattv.com/rok.m3u" },
+  { name: "🖥️ Vizio TV", url: "https://www.apsattv.com/vizio.m3u" },
+  { name: "🖥️ Redbox TV", url: "https://www.apsattv.com/redbox.m3u" },
+  { name: "🖥️ Distro TV", url: "https://www.apsattv.com/redbox.m3u" },
+  { name: "🖥️ Xiaomi TV", url: "https://www.apsattv.com/xiaomi.m3u" },
+  { name: "🖥️ Xumo TV", url: "https://www.apsattv.com/xumo.m3u" },
   { name: "🇦🇫 Afghanistan", url: "https://iptv-org.github.io/iptv/countries/af.m3u" },
   { name: "🇦🇱 Albania", url: "https://iptv-org.github.io/iptv/countries/al.m3u" },
   { name: "🇩🇿 Algeria", url: "https://iptv-org.github.io/iptv/countries/dz.m3u" },
