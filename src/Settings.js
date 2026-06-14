@@ -23,6 +23,10 @@ import parser from "iptv-playlist-parser";
 import { GlobalContext } from "./App";
 import db from "./config/dexie";
 
+const CORS_PROXY = "https://corsproxy.io/?";
+
+const proxiedUrl = (url) => `${CORS_PROXY}${encodeURIComponent(url)}`;
+
 const BUILT_IN_PLAYLISTS = [
   { name: "🌍 Worldwide", url: "https://iptv-org.github.io/iptv/index.m3u" },
   { name: "🖥️ Samsung TV Plus", url: "https://apsattv.com/ssungusa.m3u" },
@@ -257,7 +261,7 @@ export default function Settings() {
 
   const handleAddBuiltInPlaylist = (playlist) => {
     setLoadingPlaylist(playlist.name);
-    fetch(playlist.url)
+    fetch(proxiedUrl(playlist.url))
       .then((res) => res.text())
       .then((rawData) => {
         const playlistData = parser.parse(rawData).items;
@@ -296,7 +300,7 @@ export default function Settings() {
     for (let i = 0; i < BUILT_IN_PLAYLISTS.length; i++) {
       const playlist = BUILT_IN_PLAYLISTS[i];
       try {
-        const res = await fetch(playlist.url);
+        const res = await fetch(proxiedUrl(playlist.url));
         const rawData = await res.text();
         const playlistData = parser.parse(rawData).items;
         if (playlistData.length > 0) {
