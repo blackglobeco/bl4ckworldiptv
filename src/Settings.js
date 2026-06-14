@@ -24,7 +24,6 @@ import { GlobalContext } from "./App";
 import db from "./config/dexie";
 
 const BUILT_IN_PLAYLISTS = [
-  { name: "🌍 Worldwide", url: "https://iptv-org.github.io/iptv/index.m3u" },
   { name: "🇦🇫 Afghanistan", url: "https://iptv-org.github.io/iptv/countries/af.m3u" },
   { name: "🇦🇱 Albania", url: "https://iptv-org.github.io/iptv/countries/al.m3u" },
   { name: "🇩🇿 Algeria", url: "https://iptv-org.github.io/iptv/countries/dz.m3u" },
@@ -335,8 +334,6 @@ export default function Settings() {
             <ListItem key={playlist.name}>
               <ListItemText
                 primary={playlist.name}
-                secondary={playlist.url}
-                secondaryTypographyProps={{ noWrap: true, style: { maxWidth: 300 } }}
               />
               <Button
                 variant="outlined"
