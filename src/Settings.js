@@ -140,7 +140,7 @@ export default function Settings() {
                   rel="noreferrer"
                   style={{ color: "inherit" }}
                 >
-                  github.com/blackglobeco/bl4ckworldiptv
+                  Black Globe
                 </a>
               }
             />
