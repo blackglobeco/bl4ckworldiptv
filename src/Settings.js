@@ -25,6 +25,7 @@ import db from "./config/dexie";
 
 const BUILT_IN_PLAYLISTS = [
   { name: "🌍 Worldwide", url: "https://iptv-org.github.io/iptv/index.m3u" },
+  { name: "🖥️ Premium IPTV", url: "https://m3u.ibert.me/all.m3u" },
   { name: "🇦🇫 Afghanistan", url: "https://iptv-org.github.io/iptv/countries/af.m3u" },
   { name: "🇦🇱 Albania", url: "https://iptv-org.github.io/iptv/countries/al.m3u" },
   { name: "🇩🇿 Algeria", url: "https://iptv-org.github.io/iptv/countries/dz.m3u" },
@@ -210,7 +211,6 @@ const BUILT_IN_PLAYLISTS = [
   { name: "🇪🇭 Western Sahara", url: "https://iptv-org.github.io/iptv/countries/eh.m3u" },
   { name: "🇾🇪 Yemen", url: "https://iptv-org.github.io/iptv/countries/ye.m3u" },
   { name: "🇿🇼 Zimbabwe", url: "https://iptv-org.github.io/iptv/countries/zw.m3u" },
-  { name: "📡 Astro", url: "https://github.com/blackglobeco/bl4ckworldiptv/blob/main/astro_iptv.m3u" },
 ];
 
 export default function Settings() {
