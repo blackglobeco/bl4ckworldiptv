@@ -15,6 +15,7 @@ import { Route, Routes } from "react-router";
 import Home from "./Home";
 import Playlists from "./Playlists";
 import Play from "./Play";
+import Settings from "./Settings";
 import PageNotFound from "./PageNotFound";
 // Get playlist data from custom hook
 import useLivePlaylistData from "./hooks/useLivePlaylistData";
@@ -141,6 +142,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/playlists" element={<Playlists />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/play/:channelName" element={<Play />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
