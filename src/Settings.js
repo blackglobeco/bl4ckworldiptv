@@ -8,7 +8,6 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import Switch from "@mui/material/Switch";
 import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -130,6 +129,23 @@ export default function Settings() {
         >
           <ListItem>
             <ListItemText primary="App" secondary="World IPTV" />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="Developed by"
+              secondary={
+                <Typography
+                  component="a"
+                  href="https://blackglobe.qzz.io/"
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="body2"
+                  color="primary"
+                >
+                  github.com/blackglobeco/bl4ckworldiptv
+                </Typography>
+              }
+            />
           </ListItem>
         </List>
       </Box>
